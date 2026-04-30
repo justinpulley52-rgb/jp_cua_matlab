@@ -1,0 +1,144 @@
+clear all
+close all
+clc
+
+% Units
+k = 1e3; % kilo
+m = 1e-3; % milli
+u = 1e-6; % mu
+
+% Global Variables
+f = logspace(1,5,1000); % frequency
+w = 2*pi*f; % radian frequency
+
+%% Example a) High Pass
+R = 100; % Resistor Value
+L = 10*m; % Inductor Value
+imp_L = j*w*L; % Impedance of Inductor
+
+H_jw = imp_L./(R + imp_L); % Transfer Function
+
+figure;
+subplot(211);
+semilogx(f,abs(H_jw)); % gain vs frequency H_jw
+grid
+title('RL Circuit (a)');
+subplot(212);
+semilogx(f,angle(H_jw)*180/pi); % phase-shift vs frequency H_jw
+grid
+
+figure;
+polar(angle(H_jw),abs(H_jw)); % polar plot of H_jw
+grid
+title('RL Circuit (a)');
+
+%% b) Low Pass
+R = 100; % Resistor Value
+L = 10*m; % Inductor Value
+imp_L = j*w*L; % Impedance of Inductor
+
+H_jw = R./(R + imp_L); % Transfer Function
+
+figure;
+subplot(211);
+semilogx(f,abs(H_jw)); % gain vs frequency H_jw
+grid
+title('RL Circuit (b)');
+subplot(212);
+semilogx(f,angle(H_jw)*180/pi); % phase-shift vs frequency H_jw
+grid
+
+figure;
+polar(angle(H_jw),abs(H_jw)); % polar plot of H_jw
+grid
+title('RL Circuit (b)');
+
+%% c) High Pass
+R = 1*k; % Resistor Value
+C = 1*u; % Capacitor Value
+imp_C = 1./(j*w*C); % Impedance of Capacitor
+
+H_jw = R./(R + imp_C); % Transfer Function
+
+figure;
+subplot(211);
+semilogx(f,abs(H_jw)); % gain vs frequency H_jw
+grid
+title('RC Circuit (c)');
+subplot(212);
+semilogx(f,angle(H_jw)*180/pi); % phase-shift vs frequency H_jw
+grid
+
+figure;
+polar(angle(H_jw),abs(H_jw)); % polar plot of H_jw
+grid
+title('RC Circuit (c)');
+
+%% d) Low Pass
+R = 1*k; % Resistor Value
+C = 1*u; % Capacitor Value
+imp_C = 1./(j*w*C); % Impedance of Capacitor
+
+H_jw = imp_C./(R + imp_C); % Transfer Function
+
+figure;
+subplot(211);
+semilogx(f,abs(H_jw)); % gain vs frequency H_jw
+grid
+title('RC Circuit (d)');
+subplot(212);
+semilogx(f,angle(H_jw)*180/pi); % phase-shift vs frequency H_jw
+grid
+
+figure;
+polar(angle(H_jw),abs(H_jw)); % polar plot of H_jw
+grid
+title('RC Circuit (d)');
+
+%% e) Band Pass Filter
+R = 1*k; % Resistor Value
+C = 1*u; % Capacitor Value
+L = 10*m; % Inductor Value
+imp_L = j*w*L; % Impedance of Inductor
+imp_C = 1./(j*w*C); % Impedance of Capacitor
+
+H_jw = R./(R+imp_L+imp_C); % Transfer Function
+
+figure;
+subplot(211);
+semilogx(f,abs(H_jw)); % gain vs frequency H_jw
+grid
+title('RLC Circuit (e)');
+subplot(212);
+semilogx(f,angle(H_jw)*180/pi); % phase-shift vs frequency H_jw
+grid
+
+figure;
+polar(angle(H_jw),abs(H_jw)); % polar plot of H_jw
+grid
+title('RLC Circuit (e)');
+
+%% f) Band Pass Filter
+R = 100; % Resistor Value
+C = 1*u; % Capacitor Value
+L = 1*m; % Inductor Value
+imp_L = j*w*L; % Impedance of Inductor
+imp_C = 1./(j*w*C); % Impedance of Capacitor
+LPC = (imp_L.*imp_C)./(imp_L+imp_C); % Impedance of Inductor in Parallel w/ Capacitor
+
+H_jw = LPC./(R+LPC); % Transfer Function
+
+figure;
+subplot(211);
+semilogx(f,abs(H_jw)); % gain vs frequency H_jw
+grid
+title('RLC Circuit (f)');
+subplot(212);
+semilogx(f,angle(H_jw)*180/pi); % phase-shift vs frequency H_jw
+grid
+
+figure;
+polar(angle(H_jw),abs(H_jw)); % polar plot of H_jw
+grid
+title('RLC Circuit (f)');
+
